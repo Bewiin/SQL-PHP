@@ -1,4 +1,5 @@
 <?php
+/*
 $prixht = 10;
 $nrb_article = 1;
 $tva = 5.5;
@@ -77,6 +78,20 @@ function calcul7(int   $a){
     };
 };
 
-calcul7(12);
+calcul7(12);*/
 
+
+$tableau = [10,52,30,65,10,2,3];
+
+function grandeValeur($a){
+    $valeurGrande = $a[0];
+    for($i = 0; $i < count($a)-1; $i++){
+        if($a[$i+1] > $a[$i]){
+            $valeurGrande = $a[$i+1];
+        }
+    }
+    return $valeurGrande;
+};
+
+echo grandeValeur($tableau);
 ?>
