@@ -1,97 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="" method="post" enctype="multipart/form-data">
+        <label for="nom">Saisir le nom </label>
+        <input type="text" name="nom">
+        <label for="prenom">Saisir le prenom </label>
+        <input type="text" name="prenom">
+        <label for="email">Saisir un e-mail</label>
+        <input type="mail" name="email">
+        <label for="password">Saisir un mot de passe </label>
+        <input type="password" name="password">
+        <input type="submit" value="envoyer" name="submit">
+    
+    </form>
+    
+</body>
+</html>
 <?php
-/*
-$prixht = 10;
-$nrb_article = 1;
-$tva = 5.5;
-
-$total = ($nrb_article*$prixht)+($prixht*($tva)/100);
-
-echo $prixht."&nbsp&nbsp&nbsp&nbsp".$nrb_article." &nbsp&nbsp&nbsp&nbsp&nbsp".$tva."<br>";
-echo $total;
-
-function calcul1(int $a, int $b):int{
-    return $a-$b;
-};
-echo "<br>".calcul1(5,3).'<br>';
-
-function calcul2(float $c):float{
-    return round($c, 2);
-}
-
-echo calcul2(7.18999);
-
-function calcul3(...$a):int{
-    $sum = 0;
-    foreach($a as $value){
-        $sum += $value;
-    }
-    return $sum;
-}
-echo "<br>".calcul3(2,2,2,5,6);
-
-function calcul4(array $a):int{
-    return array_sum($a)/count($a);
-}
-
-echo "<br>".calcul4([6,6,6]);
-
-
-function calcul5(...$a){
-   $valeur = $a[0];
-   for($i = 0; $i < count($a); $i++){
-        if($a[$i] < $valeur){
-            $valeur = $a[$i];
-        };
-   };
-   return $valeur;
-}
-echo "<br>".calcul5(7,3,6,7,8,2);
-
-function calcul6(...$a){
-   $valeur = 0;
-   for($i = 0; $i < count($a); $i++){
-        if($a[$i] < $a[$i+1]){
-            $valeur = $a[$i];
-        };
-   };
-   return $valeur;
-}
-echo "<br>".calcul5(7,3,6,7,8,2,5,1,2);
-
-function calcul7(int   $a){
-    switch (true) {
-        case $a >= 6 && $a <= 7 :
-            echo "Poussin";
-            break;
-        case $a >= 8 && $a <= 9 :
-            echo "Pupille";
-            break;
-        case $a >= 10 && $a <= 11 :
-            echo "Minime";
-            break;
-        case $a >=12:
-            echo "Cadet";
-            break;
-        default:
-            echo "On peut pas l'inscrire ton gamin";
-            break;
-    };
-};
-
-calcul7(12);*/
-
-
-$tableau = [10,52,30,65,10,2,3];
-
-function grandeValeur($a){
-    $valeurGrande = $a[0];
-    for($i = 0; $i < count($a)-1; $i++){
-        if($a[$i+1] > $a[$i]){
-            $valeurGrande = $a[$i+1];
+if (isset ($_POST["submit"])){
+    if(!empty($_POST["nom"]) AND !empty($_POST["prenom"]) AND !empty($_POST["email"]) AND !empty($_POST["password"])){
+        if(isset($_FILES["image"]["tmp_name"])){
+            $ext = getFileExtension($_FILES["image"]["name"]);
+            if(($ext === "png" OR $ext === "PNG" OR $ext === "jpg" OR $ext === "JPG" OR $ext === "jpeg" OR $ext === "JPEG") AND ($_FILES["image"]["size"] <= 10241024)){
+                echo var_dump($_FILES);
+                move_uploaded_file($_FILES["image"]["tmp_name"], "./image/".$_FILES["image"]["name"]);
+            }else{
+                echo "Veuillez insérer le bon fichier et vérifier sa taille < ou = à 1Mo.";
+            }
+            
+        }else {
+            echo "Il n'y a pas de fichier";
         }
-    }
-    return $valeurGrande;
-};
 
-echo grandeValeur($tableau);
+    }else{
+        echo "Veuillez remplir tous les champs du formulaire";
+    }
+    //move_uploaded_file($_FILES["image"]["tmp_name"], "./image/".$_FILES["image"]["name"]);
+}
+
 ?>
